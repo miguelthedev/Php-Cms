@@ -47,18 +47,18 @@
                 </a>
                 <ul id="posts_dropdown" class="collapse">
                     <li>
-                        <a href="#">View All Posts</a>
+                        <a href="./posts.php">View All Posts</a>
                     </li>
                     <li>
-                        <a href="#">Add Post</a>
+                        <a href="posts.php?source=add_post">Add Post</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="blank-page.html"><i class="fa fa-fw fa-arrows-v"></i> Categories</a>
+                <a href="./categories.php"><i class="fa fa-fw fa-arrows-v"></i> Categories</a>
             </li>
             <li class="">
-                <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comments</a>
+                <a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
             </li>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#users_dropdown">
