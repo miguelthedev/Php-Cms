@@ -26,7 +26,7 @@
         $post_status = $_POST['post_status'];
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
-        $post_content = $_POST['post_content'];
+        $post_content = mysqli_real_escape_string($connection, $_POST['post_content']);
         $post_tags = $_POST['post_tags'];
 
         move_uploaded_file($post_image_temp, "../images/$post_image");
