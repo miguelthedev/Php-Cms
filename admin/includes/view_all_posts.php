@@ -34,9 +34,9 @@
             </select>
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-xs-4" class="bulk-menu">
             <input type="submit" name="submit" class="btn btn-success" value="Apply">
-            <a class="btn btn-primary" href="add_post.php">Add New</a>
+            <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
         </div>
 
         <thead>
