@@ -8,7 +8,7 @@
         $username = mysqli_real_escape_string($connection, $username);
         $password = mysqli_real_escape_string($connection, $password);
 
-        $query = "SELECT * FROM users WHERE username = '{$username}' AND user_password = '{$password}' ";
+        $query = "SELECT * FROM users WHERE username = '{$username}' ";
 
         $select_user_query = mysqli_query($connection, $query);
 
@@ -24,6 +24,8 @@
             $db_user_lastname = $row['user_lastname'];
             $db_user_role = $row['user_role'];
         }
+
+        $password = crypt($password, $db_user_password);
 
         if($username === $db_username && $password === $db_user_password) {
             $_SESSION['username'] = $db_username;
