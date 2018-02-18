@@ -47,7 +47,7 @@
                 echo "<td><a href='users.php?changetoadmin={$user_id}'>Make admin</a></td>";
                 echo "<td><a href='users.php?changetosub={$user_id}'>Make subscriber</a></td>";
                 echo "<td><a href='users.php?source=edit_user&edit_user={$user_id}'>Edit</a></td>";
-                echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
+                echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this?');\" href='users.php?delete={$user_id}'>Delete</a></td>";
                 echo "</tr>";
             }
         ?>
