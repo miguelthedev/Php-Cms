@@ -121,7 +121,13 @@
                     echo "<td>{$post_status}</td>";
                     echo "<td><img width='100px' src='../images/{$post_image}' alt='images'></td>";
                     echo "<td>{$post_tags}</td>";
-                    echo "<td>{$post_comment_count}</td>";
+
+                    $query = "SELECT * FROM comments WHERE comment_post_id = '$post_id' ";
+                    $send_comment_query = mysqli_query($connection, $query);
+                    $count_comments = mysqli_num_rows($send_comment_query);
+
+                    echo "<td>{$count_comments}</td>";
+
                     echo "<td>{$post_date}</td>";
                     echo "<td>{$post_views_count}</td>";  
                     echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to reset this?');\" href='posts.php?reset_views={$post_id}'>Reset</a></td>";echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
