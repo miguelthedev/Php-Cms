@@ -27,6 +27,13 @@ function checkIfUserIsLoggedInAndRedirect($redirectLocation=null) {
     }
 }
 
+function currentUser() {
+    if(isset($_SESSION['username'])) {
+        return $_SESSION['username'];
+    }
+    return false;
+}
+
 function escape($string) {
     global $connection;
 
