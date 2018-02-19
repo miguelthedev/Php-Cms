@@ -60,12 +60,11 @@ function insertCategories() {
         if($cat_title == "" || empty($cat_title)) {
             echo "Field should not be empty.";
         } else {
-            $query = "INSERT INTO categories(cat_title) ";
-            $query .= "VALUE('{$cat_title}')";
+            $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUE(?)");
+            mysqli_stmt_bind_param($stmt, 's', $cat_title);
+            mysqli_stmt_execute($stmt);
 
-            $create_category_query = mysqli_query($connection, $query);
-
-            if(!$create_category_query) {
+            if(!$stmt) {
                 die('Query failed' . mysqli_error($connection));
             }
         }
