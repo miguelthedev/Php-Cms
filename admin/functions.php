@@ -217,7 +217,7 @@ function login_user($username, $password) {
         $_SESSION['lastname'] = $db_user_lastname;
         $_SESSION['user_role'] = $db_user_role;
 
-        redirect("admin");
+        redirect("cms/admin");
     } else {
         redirect("../index.php");
     }
