@@ -13,7 +13,7 @@
 
                 <?php
                     if(isset($_GET['author'])) {
-                        $post_user = $_GET['author'];      
+                        $post_user = escape($_GET['author']);      
                     }
 
                     $query = "SELECT * FROM posts WHERE post_user = '$post_user'";

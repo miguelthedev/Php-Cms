@@ -13,7 +13,7 @@
 
                 <?php
                     if(isset($_GET['page'])) {
-                        $page = $_GET['page'];
+                        $page = escape($_GET['page']);
                     } else {
                         $page = "1";
                     }
