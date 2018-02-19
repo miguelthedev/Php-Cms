@@ -43,12 +43,19 @@
                         echo "<li class='$category_class'><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
                     }
                 ?>
-                <li>
-                    <a href="admin">Admin</a>
-                </li>
+
+                <?php if(isset($_SESSION['user_role'])): ?>
+                    <li>
+                        <a href="admin">Admin</a>
+                    </li>
+                <?php endif; ?>
+                
+                <?php if(!isset($_SESSION['user_role'])): ?>
                 <li class='<?php echo $registration_class; ?>'>
                     <a href="registration.php">Registration</a>
                 </li>
+                <?php endif; ?>
+
                 <li class='<?php echo $contact_class; ?>'>
                     <a href="contact.php">Contact</a>
                 </li>
