@@ -1,9 +1,11 @@
 <?php
     if(ifItIsMethod('post')) {
-        if(isset($_POST['username']) && isset($_POST['username'])) {
-            login_user($_POST['username'], $_POST['password']);
-        } else {
-            redirect('/cms/login.php');
+        if(isset($_POST['login'])) {
+            if(isset($_POST['username']) && isset($_POST['username'])) {
+                login_user($_POST['username'], $_POST['password']);
+            } else {
+                redirect('/cms/login.php');
+            }
         }
     }
 ?>

@@ -2,6 +2,8 @@
 <?php include "includes/header.php"; ?>
 
 <?php
+    require('./vendor/autoload.php');
+
     if(!ifItIsMethod('get') && !isset($_GET['forgot'])) {
         redirect('index');
     }
@@ -17,6 +19,33 @@
                     mysqli_stmt_bind_param($stmt, "s", $email);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_close($stmt);
+
+                    //configure PHPMailer
+                    $mail = new PHPMailer();
+
+                    $mail->isSMTP();
+                    $mail->Host = Config::SMTP_HOST;
+                    $mail->Username = Config::SMTP_USER;
+                    $mail->Password = Config::SMTP_PASSWORD;
+                    $mail->Port = Config::SMTP_PORT;                    
+                    $mail->SMTPSecure = 'tls';
+                    $mail->SMTPAuth = true;
+                    $mail->isHTML(true);
+                    $mail->CharSet = 'UTF-8';
+
+                    $mail->setFrom('deadpool@gmail.com', 'Deadpool');
+                    $mail->addAddress($email);
+                    $mail->Subject = 'Reset your password.';
+                    $mail->Body = '<p>Click to reset your password
+                    <a href="http://localhost:8888/cms/reset.php?email='.$email.'&token=' .$token.'">http://localhost:8888/cms/reset.php?email= '.$email.'&token=' .$token.'</a>
+                    </p>';
+                    
+                    if($mail->send()) {
+                        $emailSent = true;
+                    } else {
+                        echo "Mail was not sent.";
+                    }
+
                 } else {
                     echo mysqli_error($connection);
                 }
@@ -36,28 +65,34 @@
                     <div class="panel-body">
                         <div class="text-center">
 
-                                <h3><i class="fa fa-lock fa-4x"></i></h3>
-                                <h2 class="text-center">Forgot Password?</h2>
-                                <p>You can reset your password here.</p>
-                                <div class="panel-body">
+                            <?php if(!isset($emailSent)): ?>
 
-                                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                            <h3><i class="fa fa-lock fa-4x"></i></h3>
+                            <h2 class="text-center">Forgot Password?</h2>
+                            <p>You can reset your password here.</p>
+                            <div class="panel-body">
 
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
-                                            </div>
+                                <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                            <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
                                         </div>
-                                        <div class="form-group">
-                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                    </div>
 
-                                        <input type="hidden" class="hide" name="token" id="token" value="">
-                                    </form>
+                                    <input type="hidden" class="hide" name="token" id="token" value="">
+                                </form>
 
-                                </div><!-- Body-->
-
+                            </div><!-- Body-->
+                            
+                            <?php else: ?>
+                                <h2>Check your email</h2>
+                            <?php endif; ?>
+                            
                         </div>
                     </div>
                 </div>
