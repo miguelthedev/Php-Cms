@@ -176,3 +176,26 @@
 <!-- /#wrapper -->
 
 <?php include 'includes/admin_footer.php'; ?>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('0f3175fd3c54c0804876', {
+            cluster: 'us2',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('notifications');
+        channel.bind('new_user', function(notification) {
+            var message = notification.message;
+
+            toastr.success(message);
+        });
+    })
+</script>

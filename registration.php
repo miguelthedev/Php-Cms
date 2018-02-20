@@ -4,6 +4,21 @@
 <?php  include "includes/navigation.php"; ?>
 
 <?php
+    
+    require 'vendor/autoload.php';
+
+    $options = array(
+        'cluster' => 'us2',
+        'encrypted' => true
+    );
+
+    $pusher = new Pusher\Pusher(
+        '0f3175fd3c54c0804876',
+        '09515b0dd3f6293758d3',
+        '478427',
+        $options
+    );
+
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = escape($_POST['username']);
         $email = escape($_POST['email']);
@@ -47,6 +62,10 @@
 
         if(empty($error)) {
             register_user($username, $email, $password);
+
+            $data['message'] = $username . " has succesfully registered.";
+            $pusher->trigger('notifications', 'new_user', $data);
+
             login_user($username, $password);
         }
     }
