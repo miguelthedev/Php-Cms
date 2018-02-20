@@ -1,5 +1,13 @@
 <?php
 
+function imgPlaceholder($img='') {
+    if(!$img) {
+        return 'pexels-photo-132037.jpeg';
+    } else {
+        return $img;
+    }
+}
+
 function redirect($location) {
     header("Location:" . $location);
     exit;
