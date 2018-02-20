@@ -6,6 +6,8 @@
 <?php
     
     require 'vendor/autoload.php';
+    $dotenv = new \Dotenv\Dotenv(__DIR__);
+    $dotenv->load();
 
     $options = array(
         'cluster' => 'us2',
@@ -13,9 +15,9 @@
     );
 
     $pusher = new Pusher\Pusher(
-        '0f3175fd3c54c0804876',
-        '09515b0dd3f6293758d3',
-        '478427',
+        getenv('APP_KEY'),
+        getenv('APP_SECRET'),
+        getenv('APP_ID'),
         $options
     );
 
